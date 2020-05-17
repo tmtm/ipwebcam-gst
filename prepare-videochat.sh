@@ -154,7 +154,7 @@ ADB_FLAGS=
 # IP_VERSION=4
 
 # IP used by the phone in your wireless network
-WIFI_IP=192.168.2.140
+WIFI_IP=192.168.10.100
 
 # Port on which IP Webcam is listening
 PORT=8080
@@ -164,8 +164,8 @@ PORT=8080
 DISABLE_PROXY=0
 
 # Dimensions of video
-WIDTH=640
-HEIGHT=480
+WIDTH=1280
+HEIGHT=720
 
 # Frame rate of video
 GST_FPS=24
@@ -336,7 +336,7 @@ if [ -z "$DIST" ] || [ -z "${DISTS[$DIST]}" ] ; then
 fi
 
 GST_VER="0.10"
-GST_VIDEO_CONVERTER="ffmpegcolorspace"
+GST_VIDEO_CONVERTER="videoconvert"
 GST_VIDEO_MIMETYPE="video/x-raw-yuv"
 GST_VIDEO_FORMAT="format=(fourcc)YUY2"
 
@@ -417,7 +417,7 @@ elif [ $CAPTURE_STREAM = v -o $CAPTURE_STREAM = av ]; then
 fi
 
 # check if the user has the pulse gst plugin installed
-if find "/usr/lib/gstreamer-$GST_VER/libgstpulseaudio.so" "/usr/lib/gstreamer-$GST_VER/libgstpulse.so" "/usr/lib/$(uname -m)-linux-gnu/gstreamer-$GST_VER/libgstpulse.so" 2>/dev/null | egrep -q '.*'; then
+if find "/usr/lib/gstreamer-$GST_VER/libgstpulseaudio.so" "/usr/lib/gstreamer-$GST_VER/libgstpulse.so" "/usr/lib/$(uname -m)-linux-gnu/gstreamer-$GST_VER/libgstpulseaudio.so" 2>/dev/null | egrep -q '.*'; then
     # plugin installed, do nothing
     # info "Found the pulse gst plugin"
     :
@@ -621,3 +621,5 @@ pactl unload-module ${SINK_ID}
 
 echo "Disconnected from IP Webcam. Have a nice day!"
 # idea: capture ctrl-c signal and set default source back
+
+pkill adb
